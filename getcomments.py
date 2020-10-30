@@ -31,9 +31,27 @@ def get_comments(post_link):
     for i in range(len(all_comments)):
       comment_text = all_comments[i]['data']['body']
       all_text.append(comment_text)
-    print(all_text)
+    return all_text
+    
+def get_comments_with_thanks(post_link):
+    response = requests.get(f'https://www.reddit.com/{post_link}.json', headers=headers)
+    response_json = response.json()
+    all_comments = response_json[1]['data']['children']
+    all_text = []
+    for i in range(len(all_comments)):
+      comment_text = all_comments[i]['data']['body']
+      if('thank' in comment_text.lower()):
+          all_text.append(comment_text)
+    return all_text
 
 
 
 #get_comments('/r/Python/comments/jii8ex/i_teach_python_courses_heres_my_collection_of/')
-get_comments(get_top_posts('Python')[0])
+post_comments = get_comments(get_top_posts('Python')[0])
+print(post_comments)
+print(len(post_comments))
+print("---------------------------------------")
+post_comments_thanks = get_comments_with_thanks(get_top_posts('Python')[0])
+print(post_comments_thanks)
+print(len(post_comments_thanks))
+
