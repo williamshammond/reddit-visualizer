@@ -1,0 +1,22 @@
+{
+  "name": "visuals-for-reddit_host",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pagescripts.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamshammond/visuals-for-reddit-host.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williamshammond/visuals-for-reddit-host/issues"
+  },
+  "homepage": "https://github.com/williamshammond/visuals-for-reddit-host#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
