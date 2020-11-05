@@ -76,51 +76,81 @@ def add_post_data_two(subreddit, response):
     posts = response['data']['children']
 
     post_data = []
+    total_upvotes = 0
+    total_comments = 0
+    total_downvotes = 0
+    
+    
     
     corona_keys = ['corona', 'covid', '-19', 'pandemic']
     trump_keys = ['trump', 'donald']
     biden_keys = ['biden', 'joseph r']
     racial_justice_keys = ['george floyd', 'black lives','blacklives','blm','racial justice','defund the police','police reform']
     economy_keys = ['the fed','stimulus','economy','unemployment','small business','federal reserve','economic']
+    
     for i in range(len(posts)):
       post_title = posts[i]['data']['title'].casefold()
       if any(c in post_title for c in corona_keys):
         post_data.append({'Subreddit':f'{subreddit}','Topic':'COVID-19','Title':posts[i]['data']['title'],'Comments':posts[i]['data']['num_comments'],
                           'Upvotes':posts[i]['data']['ups'],'Comments/Score Ratio':(posts[i]['data']['num_comments'])/(posts[i]['data']['ups']), 'Upvote Ratio':posts[i]['data']['upvote_ratio'],
-                          'Downvotes':(posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups']})
+                          'Downvotes':int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])})
+        total_upvotes += posts[i]['data']['ups']
+        total_comments += posts[i]['data']['num_comments']
+        total_downvotes += int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])
+                               
       if any(c in post_title for c in trump_keys):
         post_data.append({'Subreddit':f'{subreddit}','Topic': 'Donald Trump','Title':posts[i]['data']['title'],'Comments':posts[i]['data']['num_comments'],
                           'Upvotes':posts[i]['data']['ups'],'Comments/Score Ratio':(posts[i]['data']['num_comments'])/(posts[i]['data']['ups']),
-                          'Upvote Ratio':posts[i]['data']['upvote_ratio'],'Downvotes':(posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups']})
+                          'Upvote Ratio':posts[i]['data']['upvote_ratio'],'Downvotes':int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])})
+        total_upvotes += posts[i]['data']['ups']
+        total_comments += posts[i]['data']['num_comments']
+        total_downvotes += int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])
+        
       if any(c in post_title for c in biden_keys):
         post_data.append({'Subreddit':f'{subreddit}','Topic': 'Joe Biden','Title':posts[i]['data']['title'],'Comments':posts[i]['data']['num_comments'],
-                          'Upvotes':posts[i]['data']['ups'],'Comments/Score Ratio':(posts[i]['data']['num_comments'])/(posts[i]['data']['ups']),
-                          'Upvote Ratio':posts[i]['data']['upvote_ratio'],'Downvotes':(posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups']})
+                          'Upvotes':posts[i]['data']['ups'],'Upvote Ratio':posts[i]['data']['upvote_ratio'],
+                          'Downvotes':int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])})
+        total_upvotes += posts[i]['data']['ups']
+        total_comments += posts[i]['data']['num_comments']
+        total_downvotes += int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])
+        
       if any(c in post_title for c in racial_justice_keys):
         post_data.append({'Subreddit':f'{subreddit}','Topic': 'Racial Justice Protests','Title':posts[i]['data']['title'],'Comments':posts[i]['data']['num_comments'],
                           'Upvotes':posts[i]['data']['ups'],'Comments/Score Ratio':(posts[i]['data']['num_comments'])/(posts[i]['data']['ups']),
-                          'Upvote Ratio':posts[i]['data']['upvote_ratio'],'Downvotes':(posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups']})
+                          'Upvote Ratio':posts[i]['data']['upvote_ratio'],'Downvotes':int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])})
+        total_upvotes += posts[i]['data']['ups']
+        total_comments += posts[i]['data']['num_comments']
+        total_downvotes += int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])
+        
       if any(c in post_title for c in economy_keys):
         post_data.append({'Subreddit':f'{subreddit}','Topic': 'The Economy','Title':posts[i]['data']['title'],'Comments':posts[i]['data']['num_comments'],
-                          'Upvotes':posts[i]['data']['ups'],'Comments/Score Ratio':(posts[i]['data']['num_comments'])/(posts[i]['data']['ups']),
-                          'Upvote Ratio':posts[i]['data']['upvote_ratio'],'Downvotes':(posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups']})  
+                          'Upvotes':posts[i]['data']['ups'],'Upvote Ratio':posts[i]['data']['upvote_ratio'],
+                          'Downvotes':int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])})
+        total_upvotes += posts[i]['data']['ups']
+        total_comments += posts[i]['data']['num_comments']
+        total_downvotes += int((posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'])
+        
+    for x in post_data:
+        x['Relative Upvotes'] = x['Upvotes']/total_upvotes
+        x['Relative Comments'] = x['Comments']/total_comments
+        x['Relative Downvotes'] = x['Downvotes']/total_downvotes
     return post_data
 
 
 
 big_list = []
-get_new_authentication()
-response = request_new_posts('news','bearer 54885096-QeeykmBBXRmrNR46dFaOtVZ9YfZ7yA','None')
+auth = get_new_authentication()
+response = request_new_posts('news',f'{auth}','None')
 big_list.extend(add_post_data_two('news',response))
 while(response['data']['after']!=None):
-  response = request_new_posts('news','bearer 54885096-QeeykmBBXRmrNR46dFaOtVZ9YfZ7yA',response['data']['after'])
+  response = request_new_posts('news',f'{auth}',response['data']['after'])
   print(response['data']['after'])
   big_list.extend(add_post_data_two('news',response))
 
-response = request_new_posts('politics','bearer 54885096-QeeykmBBXRmrNR46dFaOtVZ9YfZ7yA','None')
+response = request_new_posts('politics',f'{auth}','None')
 big_list.extend(add_post_data_two('news',response))
 while(response['data']['after']!=None):
-  response = request_new_posts('politics','bearer 54885096-QeeykmBBXRmrNR46dFaOtVZ9YfZ7yA',response['data']['after'])
+  response = request_new_posts('politics',f'{auth}',response['data']['after'])
   print(response['data']['after'])
   big_list.extend(add_post_data_two('politics',response)) 
 
@@ -128,7 +158,7 @@ while(response['data']['after']!=None):
 
 
 df = pd.DataFrame(big_list)
-df.to_csv('output1.csv')
+df.to_csv('/Users/william/Desktop/Python Website/output4.csv')
 
 
 
