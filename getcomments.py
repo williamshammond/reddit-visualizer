@@ -24,7 +24,7 @@ def get_top_posts(subreddit):
     return top_posts
     
 def get_comments(post_link):
-    response = requests.get(f'https://www.reddit.com/{post_link}.json', headers=headers)
+    response = requests.get(f'https://www.reddit.com{post_link}.json', headers=headers)
     response_json = response.json()
     all_comments = response_json[1]['data']['children']
     all_text = []
@@ -47,11 +47,13 @@ def get_comments_with_thanks(post_link):
 
 
 #get_comments('/r/Python/comments/jii8ex/i_teach_python_courses_heres_my_collection_of/')
-post_comments = get_comments(get_top_posts('Python')[0])
+top_post = get_top_posts('soccer')[0]
+print(get_comments(top_post))
+'''post_comments = get_comments(get_top_posts('soccer')[0])
 print(post_comments)
 print(len(post_comments))
 print("---------------------------------------")
-post_comments_thanks = get_comments_with_thanks(get_top_posts('Python')[0])
+post_comments_thanks = get_comments_with_thanks(get_top_posts('soccer')[0])
 print(post_comments_thanks)
 print(len(post_comments_thanks))
-
+'''

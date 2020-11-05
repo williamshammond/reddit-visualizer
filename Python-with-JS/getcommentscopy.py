@@ -51,7 +51,7 @@ def get_top_json(subreddit):
     response_json = response.json()
     return response_json
 
-resp = get_top_json('Python')
+resp = {'data':get_top_json('Python')}
 print(json.dumps(resp))
 
 sys.stdout.flush()
