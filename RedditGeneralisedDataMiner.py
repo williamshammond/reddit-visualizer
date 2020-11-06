@@ -3,6 +3,10 @@ import time
 import pandas as pd
 import random
 
+
+requesting_subreddit = # enter subreddit name here 'soccer'
+
+
 base_url = 'https://www.reddit.com/'
 data = {'grant_type': 'password', 'username': 'whammmond', 'password': 'Redditpassword2033!'}
 auth = requests.auth.HTTPBasicAuth('h6wy01n0-8H86A', 'gezsDAlid5PVXPt6ug_nyqO2XKg2Lw')
@@ -44,7 +48,8 @@ def post_data_formatted(subreddit, response):
                           'Upvotes':posts[i]['data']['ups'],
                           'Downvotes':(posts[i]['data']['ups']/(posts[i]['data']['upvote_ratio']+random.uniform(-0.005, 0.005)))-posts[i]['data']['ups'],
                           'Upvote Ratio':posts[i]['data']['upvote_ratio'], 
-                          'Comments/Upvote Ratio':(posts[i]['data']['num_comments'])/(posts[i]['data']['ups']),
+                          'Uvpote/Comment Ratio':((posts[i]['data']['ups']/posts[i]['data']['num_comments'])),
+                          'Comment/Upvote Ratio':(posts[i]['data']['num_comments']/(posts[i]['data']['ups'])),
                          })                         
     return post_data
 
@@ -63,6 +68,8 @@ def make_request(subreddit_name):
       big_list.extend(post_data_formatted(subreddit_name,response))
 
 
-make_request('soccer')
+make_request(requesting_subreddit)
 output = pd.DataFrame(big_list)
-print(output)
+
+file_name = requesting_subreddit + '.csv'
+output.to_csv(file_name)
