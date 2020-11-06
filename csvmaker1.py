@@ -22,7 +22,7 @@ import random
 
 def get_new_authentication():
     base_url = 'https://www.reddit.com/'
-    data = {'grant_type': 'password', 'username': 'whammmond', 'password': 'Redditpassword2033!'}
+    data = {'grant_type': 'password', 'username': 'whammmond', 'password': '#InsertPasswordBeforeRunning'}
     auth = requests.auth.HTTPBasicAuth('h6wy01n0-8H86A', 'gezsDAlid5PVXPt6ug_nyqO2XKg2Lw')
     r = requests.post(base_url + 'api/v1/access_token',
                       data=data,
